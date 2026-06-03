@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>錦中ブロック鉄道 (KBT) 公式サイト</title>
+    
     <style>
+
+        section {
+    scroll-margin-top: 70px; /* メニューの高さ分だけ余白を作る */
+}
 
 /* ブロック風ボタンのスタイル */
 .lego-button {
@@ -336,15 +341,15 @@ nav::-webkit-scrollbar {
 </div>
 
 
-    <section>
+    <section><section id="map"> 
         <h2>路線図</h2>
         <div class="img-placeholder" style="background: none; border: none;">
     <img src="rosenzu.png" alt="rosen" style="width: 200px; max-width:45%; height: auto; border: 4px solid white;">
-</div>
+</div> </section>
+        
     </section>
 
-    <section>
-        <h2>時刻表</h2>
+    <section><section id="timetable"> <h2>時刻表</h2>
         <div class="table-container">
             <table>
                 <thead>
@@ -374,11 +379,12 @@ nav::-webkit-scrollbar {
                     <tr><td>22</td><td>00</td><td>30</td></tr>
                 </tbody>
             </table>
-        </div>
+        </div> </section>
+        
     </section>
 
-    <section>
-        <h2>運賃表</h2>
+    <section><section id="fare"> 
+    <h2>運賃表</h2>
         <div class="table-container">
             <table>
                 <thead>
@@ -397,7 +403,8 @@ nav::-webkit-scrollbar {
                 </tbody>
             </table>
         </div>
-        <p style="font-size: 0.8rem;">※1x2タイルブロックを1パーツとして計算します。</p>
+        <p style="font-size: 0.8rem;">※1x2タイルブロックを1パーツとして計算します。</p></section>
+        
     </section>
 
     <section style="border: 6px double var(--lego-blue); background-color: #fff9e6;">
@@ -516,7 +523,7 @@ nav::-webkit-scrollbar {
     </div>
 </section>
 
-    <section>
+    <section id="trains">
         <h2>車両紹介</h2>
         <div class="train-grid">
             <div class="train-card">
