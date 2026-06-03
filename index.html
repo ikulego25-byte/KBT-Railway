@@ -238,13 +238,22 @@
 nav {
     background-color: var(--lego-gray);
     padding: 10px 0;
-    position: sticky; /* 画面上部に固定 */
-    top: 0;
-    z-index: 1000;
+    
+    /* ここを強化！ */
+    position: fixed;   /* sticky ではなく fixed に変更 */
+    top: 0;            /* 画面の一番上に固定 */
+    left: 0;           /* 左端から */
+    width: 100%;       /* 横幅いっぱい */
+    
+    z-index: 9999;     /* 他の要素より一番上に表示されるようにする */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow-x: auto; /* スマホで横に流せるようにする */
+    overflow-x: auto;
     white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+}
+
+/* ナビが浮いた分、ヘッダーが下に隠れないように余白を作る */
+body {
+    padding-top: 60px; /* ナビの高さ分だけ全体を下にずらす */
 }
 
 .nav-container {
