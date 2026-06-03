@@ -509,6 +509,76 @@
         <p style="font-size: 0.9rem; color: #666;">※車内マナーを守って、楽しい列車の旅を！</p>
     </section>
 
+
+    <section id="faq">
+    <h2>よくある質問（FAQ）</h2>
+    
+    <div style="text-align: left; padding: 10px;">
+        <div class="faq-item">
+            <p class="faq-q">Q. 交通系ICカードは使えますか？</p>
+            <p class="faq-a">A. 申し訳ございませんが、「ブロック現物払い」のみとなります。</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Q. 車内に落とし物をしてしまいました。</p>
+            <p class="faq-a">A. 木上駅の事務室へお越しください。ミニフィグの帽子の忘れ物が増えています。</p>
+        </div>
+
+        <div class="faq-item">
+            <p class="faq-q">Q. ペットと乗車できますか？</p>
+            <p class="faq-a">A. はい。他のお客様のポッチに引っかからないようご注意ください。</p>
+        </div>
+
+        <div id="more-faq" style="display: none;">
+            <div class="faq-item">
+                <p class="faq-q">Q. 写真撮影は自由ですか？</p>
+                <p class="faq-a">A. 自由です！ただし三脚（ベースプレート）の使用はご遠慮ください。</p>
+            </div>
+            <div class="faq-item">
+                <p class="faq-q">Q. 団体割引はありますか？</p>
+                <p class="faq-a">A. 10名（10体）以上の場合は、運賃が1パーツ引きになります。</p>
+            </div>
+            <div class="faq-item">
+                <p class="faq-q">Q. 無人駅はありますか？</p>
+                <p class="faq-a">A. 森下駅のみ無人駅です。</p>
+            </div>
+            <div class="faq-item">
+                <p class="faq-q">Q. なぜ森下駅のホームは1両分しかないのですか？</p>
+                <p class="faq-a">A. 森下駅は利用者数が少ないため、開業当時から1両分のホームとなっています。2両編成で運転する場合は、1号車をご利用ください。</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 10px;">
+        <button id="faq-btn" onclick="toggleFAQ()" class="lego-button" style="padding: 10px 20px; font-size: 0.9rem;">
+            もっと見る
+        </button>
+    </div>
+</section>
+
+<style>
+    .faq-item { margin-bottom: 15px; border-bottom: 1px solid var(--lego-gray); padding-bottom: 10px; }
+    .faq-q { font-weight: bold; color: var(--lego-red); margin-bottom: 5px; }
+    .faq-a { margin-top: 0; padding-left: 15px; font-size: 0.95rem; }
+</style>
+
+<script>
+function toggleFAQ() {
+    const moreFaq = document.getElementById('more-faq');
+    const btn = document.getElementById('faq-btn');
+
+    if (moreFaq.style.display === "none") {
+        moreFaq.style.display = "block";
+        btn.innerText = "閉じる";
+        btn.classList.add('lego-button-red'); // 開いた時は赤色に変える演出
+    } else {
+        moreFaq.style.display = "none";
+        btn.innerText = "もっと見る";
+        btn.classList.remove('lego-button-red');
+    }
+}
+</script>
+    
 </main>
 
 <footer>
