@@ -229,6 +229,50 @@
         html {
     scroll-behavior: smooth; /* スムーズにスクロールさせる設定 */
 }
+/* ナビゲーションバーのスタイル */
+nav {
+    background-color: var(--lego-gray);
+    padding: 10px 0;
+    position: sticky; /* 画面上部に固定 */
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow-x: auto; /* スマホで横に流せるようにする */
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 10px;
+}
+
+/* ナビ用のミニブロックボタン */
+.nav-item {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 0 5px;
+    background-color: var(--lego-white);
+    color: var(--lego-blue);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    border-bottom: 3px solid var(--lego-gray);
+    transition: 0.2s;
+}
+
+.nav-item:active {
+    border-bottom: none;
+    transform: translateY(3px);
+}
+
+/* スクロールバーを隠す（任意） */
+nav::-webkit-scrollbar {
+    display: none;
+}
+        
     </style>
 
     <link rel="icon" href="logo.png">
@@ -239,7 +283,19 @@
 
 </head>
 <body>
-
+    
+<nav id="top">
+    <div class="nav-container">
+        <a href="#top" class="nav-item">TOP</a>
+        <a href="#about" class="nav-item">会社紹介</a>
+        <a href="#map" class="nav-item">路線図</a>
+        <a href="#timetable" class="nav-item">時刻表</a>
+        <a href="#fare" class="nav-item">運賃表</a>
+        <a href="#trains" class="nav-item">車両紹介</a>
+        <a href="#faq" class="nav-item">質問（FAQ）</a>
+    </div>
+</nav>
+    
 <header>
    <div class="logo-placeholder">
     <img src="logo.png" alt="KBTロゴ" style="width: 100%; height: 100%; object-fit: contain;">
@@ -266,12 +322,13 @@
         </ul>
     </section>
 
-    <section>
+    <section><section id="about"> 
         <h2>会社紹介</h2>
        <div class="img-placeholder" style="background: none; border: none;">
     <img src="honsya.png" alt="kaissya" style="width: 45%; height: auto; border: 4px solid white;">
 </div>
         <p>錦中（きんちゅう）ブロック鉄道は、木上と森下を結ぶ全長2kmの短い路線です。みんなの夢を乗せて走ります。</p>
+    </section> 
     </section>
 
 <div style="text-align: center; margin: 20px 0;">
