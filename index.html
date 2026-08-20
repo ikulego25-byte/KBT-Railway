@@ -160,32 +160,33 @@
             font-size: 0.9rem;
         }
 
-        /* 広告エリア */
-        .ad-banner-wrapper {
-            max-width: 800px;
-            margin: 15px auto;
-            padding: 0 10px;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-        }
+   /* 修正後 CSS */
+.ad-banner-wrapper {
+    max-width: 800px;
+    margin: 15px auto;
+    padding: 0 10px;
+    overflow: hidden; /* はみ出しをカット */
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+}
 
-        .ad-banner-container {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 300%;
-        }
+.ad-banner-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%; /* 300%から100%に変更 */
+}
 
-        .ad-slide {
-            width: 100%;
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-sizing: border-box;
-            cursor: pointer;
-        }
-
+.ad-slide {
+    width: 100%;
+    flex-shrink: 0; /* スライドが潰れるのを防止 */
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
         .ad-red { background-color: #ffebee; color: #c62828; border-left: 6px solid var(--lego-red); }
         .ad-yellow { background-color: #fffde7; color: #f57f17; border-left: 6px solid var(--lego-yellow); }
         .ad-blue { background-color: #e8eaf6; color: #1a237e; border-left: 6px solid var(--lego-blue); }
@@ -201,12 +202,11 @@
         }
 
         .ad-text {
-            font-size: 0.85rem;
-            line-height: 1.4;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    font-size: 0.85rem;
+    line-height: 1.4;
+    white-space: normal; /* テキストを自動折り返しに変更 */
+    word-break: break-word;
+}
 
         /* メインコンテンツ */
         main {
@@ -867,9 +867,10 @@ function toggleFAQ() {
 let currentAdIndex = 0;
 const totalAds = 3;
 
+// 修正後：
 setInterval(function() {
     currentAdIndex = (currentAdIndex + 1) % totalAds;
-    const offset = -currentAdIndex * (100 / totalAds);
+    const offset = -currentAdIndex * 100; // ← 100%ずつスライドさせる
     document.getElementById('ad-slider').style.transform = `translateX(${offset}%)`;
 }, 3500);
 
