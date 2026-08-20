@@ -234,6 +234,8 @@
         html {
     scroll-behavior: smooth; /* スムーズにスクロールさせる設定 */
 }
+
+
 /* ナビゲーションバーのスタイル */
 nav {
     background-color: var(--lego-gray);
@@ -307,6 +309,23 @@ nav::-webkit-scrollbar {
         <a href="#faq" class="nav-item">よくある質問</a>
     </div>
 </nav>
+
+<!-- ローディング画面（文字アニメーション版） -->
+<div id="loading">
+    <div class="loading-content">
+        <!-- 🚃💨 から KBT ロゴへ変更 -->
+        <div class="kbt-logo-anim">KBT</div>
+        
+        <p class="loading-text">出発準備中…</p>
+        
+        <!-- プログレスバー（ゲージ） -->
+        <div class="progress-bar-container">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <p class="loading-sub">錦中ブロック鉄道へようこそ</p>
+    </div>
+</div>
     
 <header>
     
@@ -667,6 +686,115 @@ nav::-webkit-scrollbar {
     .faq-item { margin-bottom: 15px; border-bottom: 1px solid var(--lego-gray); padding-bottom: 10px; }
     .faq-q { font-weight: bold; color: var(--lego-red); margin-bottom: 5px; }
     .faq-a { margin-top: 0; padding-left: 15px; font-size: 0.95rem; }
+
+    /* ローディング画面全体（画面を覆い隠す） */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--lego-blue, #0055bf); /* 背景色 */
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999; /* 何があっても一番上に表示 */
+    transition: opacity 0.8s ease, visibility 0.8s ease; /* 消える時の滑らかさ */
+}
+
+/* ローディングの中身 */
+.loading-content {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+/* KBTロゴのカッコいいアニメーション設定 */
+.kbt-logo-anim {
+    font-size: 3.8rem;
+    font-weight: 900;
+    font-family: 'Impact', 'Arial Black', sans-serif; /* 太くて力強いフォント */
+    letter-spacing: 4px;
+    color: var(--lego-yellow, #ffcf00);
+    
+    /* 3Dブロック風の影をつけて立体的に見せる */
+    text-shadow: 
+        3px 3px 0px var(--lego-red, #e3000b),
+        6px 6px 0px #000000;
+        
+    margin-bottom: 15px;
+    display: inline-block;
+    
+    /* アニメーションの呼び出し */
+    animation: kbtPulse 1.2s infinite ease-in-out;
+}
+
+/* KBT文字がかっこよく拡大＆揺れるアニメーション */
+@keyframes kbtPulse {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        transform: scale(1.15) rotate(-2deg); /* ぐっと大きくなって少し傾く */
+        text-shadow: 
+            4px 4px 0px var(--lego-red, #e3000b),
+            8px 8px 10px rgba(0, 0, 0, 0.5); /* 影が広がる */
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+/* プログレスバーの外枠 */
+.progress-bar-container {
+    width: 250px;
+    height: 16px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    margin: 0 auto 15px auto;
+    overflow: hidden;
+    border: 2px solid #ffffff;
+}
+
+/* プログレスバーの中身（黄色いゲージ） */
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--lego-yellow, #ffcf00);
+    border-radius: 6px;
+    animation: fillProgress 2s forwards; /* 2秒かけてゲージが溜まる */
+}
+
+.loading-sub {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* 電車が揺れる動き */
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+}
+
+/* バーが伸びる動き */
+@keyframes fillProgress {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+}
+
+/* 読み込み完了後に画面を消すためのクラス */
+#loading.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
 </style>
 
 <script>
@@ -714,6 +842,17 @@ function updateStatus() {
     }
 }
 window.onload = updateStatus;
+
+// ページの読み込みが完了したらローディング画面を消す
+window.addEventListener('load', function() {
+    const loading = document.getElementById('loading');
+    
+    // 演出をしっかり見せるために、ちょっとだけ（2.2秒）待ってから消す
+    setTimeout(function() {
+        loading.classList.add('loaded');
+    }, 2200); 
+});
+
 </script>
 
 </body>
