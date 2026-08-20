@@ -6,60 +6,6 @@
     <title>錦中ブロック鉄道 (KBT) 公式サイト</title>
     
     <style>
-
-        section {
-    scroll-margin-top: 70px; /* メニューの高さ分だけ余白を作る */
-}
-
-/* ブロック風ボタンのスタイル */
-.lego-button {
-    display: inline-block;
-    position: relative;
-    padding: 15px 40px;
-    background-color: var(--lego-blue);
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 6px 0 #003a85; /* 下側の厚み（立体感） */
-    transition: all 0.1s;
-    margin: 20px 0;
-    text-align: center;
-}
-
-/* ポッチ（ブロックの上の突起）を疑似要素で表現 */
-.lego-button::before, .lego-button::after {
-    content: "";
-    position: absolute;
-    top: -6px;
-    width: 16px;
-    height: 6px;
-    background-color: var(--lego-blue);
-    border-radius: 3px 3px 0 0;
-}
-.lego-button::before { left: 20%; }
-.lego-button::after { right: 20%; }
-
-/* クリックした時の動き */
-.lego-button:active {
-    transform: translateY(3px);
-    box-shadow: 0 3px 0 #003a85;
-}
-
-/* 赤色バージョンのブロックボタン */
-.lego-button-red {
-    background-color: var(--lego-red);
-    box-shadow: 0 6px 0 #8b0c09;
-}
-.lego-button-red::before, .lego-button-red::after {
-    background-color: var(--lego-red);
-}
-.lego-button-red:active {
-    box-shadow: 0 3px 0 #8b0c09;
-}
-
         :root {
             --lego-red: #d1120d;
             --lego-blue: #0055bf;
@@ -69,13 +15,81 @@
             --bg-color: #f0f0f0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Helvetica Neue', Arial, "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
             margin: 0;
             padding: 0;
+            padding-top: 60px; /* ナビ固定用の余白 */
             background-color: var(--bg-color);
             color: #333;
             line-height: 1.6;
+        }
+
+        /* 背景を走る列車 */
+        .background-train {
+            position: fixed;
+            bottom: 15px;
+            left: -200px;
+            width: 140px;
+            height: 60px;
+            background-image: url('kidousya.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+            opacity: 0.85;
+            animation: runTrain 16s linear infinite;
+        }
+
+        @keyframes runTrain {
+            0% { left: -200px; }
+            100% { left: 100%; }
+        }
+
+        /* ナビゲーションバー */
+        nav {
+            background-color: var(--lego-gray);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: flex-start;
+            padding: 0 10px;
+        }
+
+        .nav-item {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 0 5px;
+            background-color: var(--lego-white);
+            color: var(--lego-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            border-bottom: 3px solid var(--lego-gray);
+            transition: 0.2s;
+        }
+
+        .nav-item:active {
+            border-bottom: none;
+            transform: translateY(3px);
+        }
+
+        nav::-webkit-scrollbar {
+            display: none;
         }
 
         /* ヘッダー */
@@ -97,19 +111,16 @@
             justify-content: center;
             border-radius: 12px;
             border: 4px solid var(--lego-blue);
-            color: #ccc;
-            font-size: 0.8rem;
         }
 
-        /* 【新設】ロゴとタイトルの間の画像エリア */
         .header-banner-placeholder {
-            width: 90%; max-width: 500px;
+            width: 90%; 
+            max-width: 500px;
             height: 120px;
-            background: rgba(255,255,255,0.2);
             margin: 15px auto;
-            border: 3px dashed white;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: bold;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
         }
 
         h1 {
@@ -137,6 +148,66 @@
             margin-bottom: 5px;
         }
 
+        /* 天気パネル */
+        .weather-panel {
+            background: #eef7ff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px auto;
+            max-width: 800px;
+            border: 1px solid #b3d7ff;
+            font-size: 0.9rem;
+        }
+
+        /* 広告エリア */
+        .ad-banner-wrapper {
+            max-width: 800px;
+            margin: 15px auto;
+            padding: 0 10px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        .ad-banner-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 300%;
+        }
+
+        .ad-slide {
+            width: 100%;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .ad-red { background-color: #ffebee; color: #c62828; border-left: 6px solid var(--lego-red); }
+        .ad-yellow { background-color: #fffde7; color: #f57f17; border-left: 6px solid var(--lego-yellow); }
+        .ad-blue { background-color: #e8eaf6; color: #1a237e; border-left: 6px solid var(--lego-blue); }
+
+        .ad-badge {
+            background-color: #333;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        .ad-text {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         /* メインコンテンツ */
         main {
             padding: 10px;
@@ -150,6 +221,7 @@
             border: 4px solid var(--lego-gray);
             border-radius: 10px;
             box-sizing: border-box;
+            scroll-margin-top: 70px;
         }
 
         h2 {
@@ -173,15 +245,61 @@
             font-size: 0.9rem;
         }
 
+        /* ブロックボタン */
+        .lego-button {
+            display: inline-block;
+            position: relative;
+            padding: 15px 40px;
+            background-color: var(--lego-blue);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #003a85;
+            transition: all 0.1s;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .lego-button::before, .lego-button::after {
+            content: "";
+            position: absolute;
+            top: -6px;
+            width: 16px;
+            height: 6px;
+            background-color: var(--lego-blue);
+            border-radius: 3px 3px 0 0;
+        }
+        .lego-button::before { left: 20%; }
+        .lego-button::after { right: 20%; }
+
+        .lego-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #003a85;
+        }
+
+        .lego-button-red {
+            background-color: var(--lego-red);
+            box-shadow: 0 6px 0 #8b0c09;
+        }
+        .lego-button-red::before, .lego-button-red::after {
+            background-color: var(--lego-red);
+        }
+        .lego-button-red:active {
+            box-shadow: 0 3px 0 #8b0c09;
+        }
+
         /* お知らせ */
         .news-list { padding: 0; list-style: none; font-size: 0.9rem; }
         .news-list li { padding: 8px 0; border-bottom: 1px dashed #ccc; }
         .date { color: var(--lego-red); font-weight: bold; margin-right: 10px; }
 
-        /* 時刻表・運賃表 */
+        /* テーブル */
         .table-container {
             width: 100%;
-            overflow-x: auto; /* スマホではみ出さないようスクロール */
+            overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -201,10 +319,10 @@
         th { background-color: var(--lego-blue); color: white; }
         .rush-hour { background-color: #fff9e6; font-weight: bold; }
 
-        /* 車両紹介グリッド */
+        /* 車両紹介 */
         .train-grid {
             display: grid;
-            grid-template-columns: 1fr; /* デフォルトは1列 */
+            grid-template-columns: 1fr;
             gap: 15px;
         }
 
@@ -214,7 +332,12 @@
             border-radius: 8px;
         }
 
-        /* PC向けレイアウト調整 */
+        /* FAQ */
+        .faq-item { margin-bottom: 15px; border-bottom: 1px solid var(--lego-gray); padding-bottom: 10px; }
+        .faq-q { font-weight: bold; color: var(--lego-red); margin-bottom: 5px; }
+        .faq-a { margin-top: 0; padding-left: 15px; font-size: 0.95rem; }
+
+        /* PCレイアウト */
         @media (min-width: 600px) {
             h1 { font-size: 2.5rem; }
             .train-grid { grid-template-columns: repeat(3, 1fr); }
@@ -231,74 +354,103 @@
             font-size: 0.8rem;
         }
 
-        html {
-    scroll-behavior: smooth; /* スムーズにスクロールさせる設定 */
-}
+        /* ローディング画面 */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--lego-blue);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
 
+        .loading-content {
+            text-align: center;
+            font-family: sans-serif;
+        }
 
-/* ナビゲーションバーのスタイル */
-nav {
-    background-color: var(--lego-gray);
-    padding: 10px 0;
-    
-    /* ここを強化！ */
-    position: fixed;   /* sticky ではなく fixed に変更 */
-    top: 0;            /* 画面の一番上に固定 */
-    left: 0;           /* 左端から */
-    width: 100%;       /* 横幅いっぱい */
-    
-    z-index: 9999;     /* 他の要素より一番上に表示されるようにする */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow-x: auto;
-    white-space: nowrap;
-}
+        .kbt-logo-anim {
+            font-size: 3.8rem;
+            font-weight: 900;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 4px;
+            color: var(--lego-yellow);
+            text-shadow: 
+                3px 3px 0px var(--lego-red),
+                6px 6px 0px #000000;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: kbtPulse 1.2s infinite ease-in-out;
+        }
 
-/* ナビが浮いた分、ヘッダーが下に隠れないように余白を作る */
-body {
-    padding-top: 60px; /* ナビの高さ分だけ全体を下にずらす */
-}
+        @keyframes kbtPulse {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { 
+                transform: scale(1.15) rotate(-2deg); 
+                text-shadow: 4px 4px 0px var(--lego-red), 8px 8px 10px rgba(0, 0, 0, 0.5);
+            }
+            100% { transform: scale(1) rotate(0deg); }
+        }
 
-.nav-container {
-    display: flex;
-    justify-content: flex-start;
-    padding: 0 10px;
-}
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
 
-/* ナビ用のミニブロックボタン */
-.nav-item {
-    display: inline-block;
-    padding: 8px 15px;
-    margin: 0 5px;
-    background-color: var(--lego-white);
-    color: var(--lego-blue);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.85rem;
-    border-radius: 4px;
-    border-bottom: 3px solid var(--lego-gray);
-    transition: 0.2s;
-}
+        .progress-bar-container {
+            width: 250px;
+            height: 16px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            margin: 0 auto 15px auto;
+            overflow: hidden;
+            border: 2px solid #ffffff;
+        }
 
-.nav-item:active {
-    border-bottom: none;
-    transform: translateY(3px);
-}
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: var(--lego-yellow);
+            border-radius: 6px;
+            animation: fillProgress 2s forwards;
+        }
 
-/* スクロールバーを隠す（任意） */
-nav::-webkit-scrollbar {
-    display: none;
-}
-        
+        .loading-sub {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        #loading.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
 
     <link rel="icon" href="logo.png">
-
-<link rel="icon" type="image/png" href="logo.png">
-
-<link rel="apple-touch-icon" href="logo.png">
-
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
 </head>
-<body> <nav>
+<body>
+
+<!-- 背景を走る列車 -->
+<div class="background-train"></div>
+
+<!-- ナビゲーションバー -->
+<nav>
     <div class="nav-container">
         <a href="#" class="nav-item">TOP</a>
         <a href="#about" class="nav-item">会社紹介</a>
@@ -310,33 +462,25 @@ nav::-webkit-scrollbar {
     </div>
 </nav>
 
-<!-- ローディング画面（文字アニメーション版） -->
+<!-- ローディング画面 -->
 <div id="loading">
     <div class="loading-content">
-        <!-- 🚃💨 から KBT ロゴへ変更 -->
         <div class="kbt-logo-anim">KBT</div>
-        
         <p class="loading-text">出発準備中…</p>
-        
-        <!-- プログレスバー（ゲージ） -->
         <div class="progress-bar-container">
             <div class="progress-bar"></div>
         </div>
-        
         <p class="loading-sub">錦中ブロック鉄道へようこそ</p>
     </div>
 </div>
     
-<header>
-    
-   <div class="logo-placeholder">
-    <img src="logo.png" alt="KBTロゴ" style="width: 100%; height: 100%; object-fit: contain;">
-</div>
-    
-   <div class="header-banner-placeholder" style="background: none; border: none;">
-    <img src="hedda.jpeg" alt="駅の全景" style="width: 60%; height: auto; border: 4px solid white;">
-</div>
-
+<header id="top">
+    <div class="logo-placeholder">
+        <img src="logo.png" alt="KBTロゴ" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div class="header-banner-placeholder">
+        <img src="hedda.jpeg" alt="駅の全景" style="width: 60%; height: auto; border: 4px solid white;">
+    </div>
     <h1>錦中ブロック鉄道</h1>
 </header>
 
@@ -345,60 +489,79 @@ nav::-webkit-scrollbar {
     <span id="status-text">読み込み中...</span>
 </div>
 
+<!-- 本日の天気パネル -->
+<div class="weather-panel">
+    🌤️ <strong>本日の沿線天気：</strong> 晴れのちブロック ｜ <strong>おでかけ指数：</strong> 100%（撮影日和！）
+</div>
+
+<!-- 切り替わる広告バナーエリア -->
+<div class="ad-banner-wrapper">
+    <div class="ad-banner-container" id="ad-slider">
+        <div class="ad-slide ad-red">
+            <span class="ad-badge">スポンサー</span>
+            <div class="ad-text">
+                <strong>【KBTショップ】</strong> ミニフィグ用「限定硬券キーホルダー」好評発売中！ 
+            </div>
+        </div>
+        <div class="ad-slide ad-yellow">
+            <span class="ad-badge">お知らせ</span>
+            <div class="ad-text">
+                <strong>【ポッチ銀行】</strong> ブロック鉄道の定期券購入でポイント2倍キャンペーン実施中！
+            </div>
+        </div>
+        <div class="ad-slide ad-blue">
+            <span class="ad-badge">急募</span>
+            <div class="ad-text">
+                <strong>【木上駅】</strong> 構内カフェ「Brick Coffee」で働くスタッフ（ミニフィグ）大募集！
+            </div>
+        </div>
+    </div>
+</div>
+
 <main>
     <section>
         <h2>最近のお知らせ</h2>
         <ul class="news-list">
             <li><span class="date">2026.07.09</span> 夏休みに向けた増結運転のお知らせ</li>
-             <li><span class="date">2026.06.18</span> 森下駅付近の拡張工事について</li>
+            <li><span class="date">2026.06.18</span> 森下駅付近の拡張工事について</li>
             <li><span class="date">2026.06.04</span> ディーゼル機関車「DB10-3」2027年末引退のお知らせ</li>
         </ul>
     </section>
 
-    <section><section id="about"> 
+    <section id="about"> 
         <h2>会社紹介</h2>
-       <div class="img-placeholder" style="background: none; border: none;">
-    <img src="honsya.png" alt="kaissya" style="width: 45%; height: auto; border: 4px solid white;">
-</div>
-        <p>錦中（きんちゅう）ブロック鉄道は、地域の暮らしを支える"架空"のローカル鉄道会社です。 <br>
+        <div class="img-placeholder" style="background: none; border: none;">
+            <img src="honsya.png" alt="kaissya" style="width: 45%; height: auto; border: 4px solid white;">
+        </div>
+        <p>錦中（きんちゅう）ブロック鉄道は、地域の暮らしを支える"架空"のローカル鉄道会社です。<br>
             車両や風景は全て「レゴ®ブロック」でできており、山あいの町と海辺の集落を結び、通学・通勤輸送を中心に観光輸送も行っています。<br>
-             本社では車両の整備や運行管理を行っており、小規模ながらも地域に密着した運営を続けています。<br>
-              沿線には無人駅や開業当初から変わらない駅舎が点在し、どこか懐かしい風景が広がります。<br>
-               主力車両には、国鉄型気動車を改造した一般車両や、入れ換えディーゼル機関車などが在籍しています。 <br>
-               単行運転から2両編成運転まで柔軟に対応し、朝夕は通学列車、休日は観光列車として活躍しています。 <br>
-               「地域とともに走る鉄道」をコンセプトに、今日も錦中鉄道はゆっくりと沿線を走り続けています。</p>
+            本社では車両の整備や運行管理を行っており、小規模ながらも地域に密着した運営を続けています。<br>
+            沿線には無人駅や開業当初から変わらない駅舎が点在し、どこか懐かしい風景が広がります。<br>
+            主力車両には、国鉄型気動車を改造した一般車両や、入れ換えディーゼル機関車などが在籍しています。<br>
+            単行運転から2両編成運転まで柔軟に対応し、朝夕は通学列車、休日は観光列車として活躍しています。<br>
+            「地域とともに走る鉄道」をコンセプトに、今日も錦中鉄道はゆっくりと沿線を走り続けています。</p>
     </section> 
-    </section>
 
-<div style="text-align: center; margin: 20px 0;">
-    <a href="#history" class="lego-button">路線の歴史を見る</a>
-</div>
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="#history" class="lego-button">路線の歴史を見る</a>
+    </div>
 
-
-    <section><section id="map"> 
+    <section id="map"> 
         <h2>路線図</h2>
         <div class="img-placeholder" style="background: none; border: none;">
-    <img src="rosenzu.png" alt="rosen" style="width: 200px; max-width:45%; height: auto; border: 4px solid white;">
-</div>
-    <p>【森下駅をご利用のお客様へ】<br>
-
-森下駅のホーム有効長は1両分のため、2両編成で運転する列車では2号車がホームにかかりません。<br>
-
-森下駅でお降りのお客様は、あらかじめ車内貫通路を通り1号車へお移りください。<br>
-
-森下駅からご乗車のお客様は1号車よりご乗車いただき、車内の混雑状況に応じて貫通路を通り2号車へお進みください。<br>
-
-また、森下駅の木上寄りにある踏切は、ホームが1両対応で2両編成の列車に対応していないため、2号車が踏切の上に停車し、遮断します。<br>
-        
-遮断中は踏切の横断・通行ができないので、直ぐに渡りたい場合は森下駅南にある地下通路をご利用ください。<br>
-
-ご利用のお客様にはご不便をおかけいたしますが、ご理解とご協力をお願いいたします。<br>
-
-</p></section>
-        
+            <img src="rosenzu.png" alt="rosen" style="width: 200px; max-width:45%; height: auto; border: 4px solid white;">
+        </div>
+        <p>【森下駅をご利用のお客様へ】<br>
+        森下駅のホーム有効長は1両分のため、2両編成で運転する列車では2号車がホームにかかりません。<br>
+        森下駅でお降りのお客様は、あらかじめ車内貫通路を通り1号車へお移りください。<br>
+        森下駅からご乗車のお客様は1号車よりご乗車いただき、車内の混雑状況に応じて貫通路を通り2号車へお進みください。<br>
+        また、森下駅の木上寄りにある踏切は、ホームが1両対応で2両編成の列車に対応していないため、2号車が踏切の上に停車し、遮断します。<br>
+        遮断中は踏切の横断・通行ができないので、直ぐに渡りたい場合は森下駅南にある地下通路をご利用ください。<br>
+        ご利用のお客様にはご不便をおかけいたしますが、ご理解とご協力をお願いいたします。</p>
     </section>
 
-    <section><section id="timetable"> <h2>時刻表</h2>
+    <section id="timetable"> 
+        <h2>時刻表</h2>
         ⚠️一部列車が変更、運休となる場合があります。
         <div class="table-container">
             <table>
@@ -429,12 +592,11 @@ nav::-webkit-scrollbar {
                     <tr><td>22</td><td>00</td><td>30</td></tr>
                 </tbody>
             </table>
-        </div> </section>
-        
+        </div>
     </section>
 
-    <section><section id="fare"> 
-    <h2>運賃表</h2>
+    <section id="fare"> 
+        <h2>運賃表</h2>
         <div class="table-container">
             <table>
                 <thead>
@@ -453,8 +615,7 @@ nav::-webkit-scrollbar {
                 </tbody>
             </table>
         </div>
-        <p style="font-size: 0.8rem;">※1x1丸タイルブロックを1パーツとして計算します。</p></section>
-        
+        <p style="font-size: 0.8rem;">※1x1丸タイルブロックを1パーツとして計算します。</p>
     </section>
 
     <section style="border: 6px double var(--lego-blue); background-color: #fff9e6;">
@@ -485,8 +646,7 @@ nav::-webkit-scrollbar {
                 </tr>
                 <tr>
                     <td style="font-weight: bold; color: var(--lego-blue); border: none;">特典</td>
-                    <td style="border: none;">ご乗車の方に「特製ブロック硬券」をプレゼント！<br> 
-                    国鉄貨車2両 扉開閉体験イベントあり！</td>
+                    <td style="border: none;">ご乗車の方に「特製ブロック硬券」をプレゼント！<br> 国鉄貨車2両 扉開閉体験イベントあり！</td>
                 </tr>
             </table>
         </div>
@@ -500,102 +660,102 @@ nav::-webkit-scrollbar {
         </p>
     </section>
 
-    <section id="event-detail" style="border: 4px solid var(--lego-red); background-color: #ffffff; scroll-margin-top: 20px;">
-    <h2 style="color: var(--lego-red); border-left: 8px solid var(--lego-red);">
-        『DL国鉄復活号』運転詳細
-    </h2>
-    
-    <h3>📅 運転時刻表</h3>
-    <p style="font-size: 0.9rem;">※駅間が短いため、1日に数往復運転いたします。</p>
-    <div class="table-container">
-        <table style="border: 2px solid var(--lego-red);">
-            <thead>
-                <tr style="background-color: var(--lego-red); color: white;">
-                    <th>便名</th>
-                    <th>木上駅 発</th>
-                    <th>森下駅 着</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>復活1号</td><td>10:15</td><td>10:20</td></tr>
-                <tr><td>復活3号</td><td>14:15</td><td>14:20</td></tr>
-            </tbody>
-        </table>
-    </div>
+    <section id="event-detail" style="border: 4px solid var(--lego-red); background-color: #ffffff; scroll-margin-top: 70px;">
+        <h2 style="color: var(--lego-red); border-left: 8px solid var(--lego-red);">
+            『DL国鉄復活号』運転詳細
+        </h2>
+        
+        <h3>📅 運転時刻表</h3>
+        <p style="font-size: 0.9rem;">※駅間が短いため、1日に数往復運転いたします。</p>
+        <div class="table-container">
+            <table style="border: 2px solid var(--lego-red);">
+                <thead>
+                    <tr style="background-color: var(--lego-red); color: white;">
+                        <th>便名</th>
+                        <th>木上駅 発</th>
+                        <th>森下駅 着</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>復活1号</td><td>10:15</td><td>10:20</td></tr>
+                    <tr><td>復活3号</td><td>14:15</td><td>14:20</td></tr>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="table-container" style="margin-top: 15px;">
-        <table style="border: 2px solid var(--lego-blue);">
-            <thead>
-                <tr style="background-color: var(--lego-blue); color: white;">
-                    <th>便名</th>
-                    <th>森下駅 発</th>
-                    <th>木上駅 着</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>復活2号</td><td>11:15</td><td>11:20</td></tr>
-                <tr><td>復活4号</td><td>15:30</td><td>15:35</td></tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="table-container" style="margin-top: 15px;">
+            <table style="border: 2px solid var(--lego-blue);">
+                <thead>
+                    <tr style="background-color: var(--lego-blue); color: white;">
+                        <th>便名</th>
+                        <th>森下駅 発</th>
+                        <th>木上駅 着</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>復活2号</td><td>11:15</td><td>11:20</td></tr>
+                    <tr><td>復活4号</td><td>15:30</td><td>15:35</td></tr>
+                </tbody>
+            </table>
+        </div>
 
-    <h3>💰 乗車料金（追加料金）</h3>
-    <div style="background: #eee; padding: 15px; border-radius: 8px; text-align: center;">
-        <p style="margin: 5px 0;">大人：<strong style="font-size: 1.2rem; color: var(--lego-red);">10パーツ</strong></p>
-        <p style="margin: 5px 0;">ミニフィグ：<strong style="font-size: 1.2rem; color: var(--lego-blue);">5パーツ</strong></p>
-        <p style="font-size: 0.8rem; margin-top: 10px;">※記念乗車証（ブロック製）の代金を含みます。</p>
-    </div>
+        <h3>💰 乗車料金（追加料金）</h3>
+        <div style="background: #eee; padding: 15px; border-radius: 8px; text-align: center;">
+            <p style="margin: 5px 0;">大人：<strong style="font-size: 1.2rem; color: var(--lego-red);">10パーツ</strong></p>
+            <p style="margin: 5px 0;">ミニフィグ：<strong style="font-size: 1.2rem; color: var(--lego-blue);">5パーツ</strong></p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">※記念乗車証（ブロック製）の代金を含みます。</p>
+        </div>
 
-    <div style="text-align: center; margin-top: 20px;">
-        <button onclick="alert('error 予約に失敗しました。')" class="lego-button">
-            この内容で予約する
-        </button>
-    </div>
-</section>
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="alert('error 予約に失敗しました。')" class="lego-button">
+                この内容で予約する
+            </button>
+        </div>
+    </section>
     
     <section id="history">
-    <h2>路線の歴史</h2>
-    <div style="padding: 10px;">
-        <ul style="list-style-type: none; padding-left: 0;">
-            <li style="margin-bottom: 15px;">
-                <strong style="color: var(--lego-red);">1990年：</strong> 
-                「錦中ブロック鉄道」として、木上〜森下間が手回しトロッコで開業。
-            </li>
-            <li style="margin-bottom: 15px;">
-                <strong style="color: var(--lego-blue);">2005年：</strong> 
-                糸町鉄道から譲渡されたキハ1000-1（旧キハ26-919）が運行を開始しました。
-            </li>
-            <li style="margin-bottom: 15px;">
-                <strong style="color: var(--lego-yellow); background: #333; padding: 2px 5px;">現在：</strong> 
-                キハ2000の導入により、ラッシュ時によるキハ1000との2両運転が可能になりました。
-            </li>
-        </ul>
-    </div>
-</section>
+        <h2>路線の歴史</h2>
+        <div style="padding: 10px;">
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 15px;">
+                    <strong style="color: var(--lego-red);">1990年：</strong> 
+                    「錦中ブロック鉄道」として、木上〜森下間が手回しトロッコで開業。
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <strong style="color: var(--lego-blue);">2005年：</strong> 
+                    糸町鉄道から譲渡されたキハ1000-1（旧キハ26-919）が運行を開始しました。
+                </li>
+                <li style="margin-bottom: 15px;">
+                    <strong style="color: var(--lego-yellow); background: #333; padding: 2px 5px;">現在：</strong> 
+                    キハ2000の導入により、ラッシュ時によるキハ1000との2両運転が可能になりました。
+                </li>
+            </ul>
+        </div>
+    </section>
 
     <section id="trains">
         <h2>車両紹介</h2>
         <div class="train-grid">
             <div class="train-card">
-    <img src="1000057689.jpg" alt="1000系" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
-    <h4>キハ1000-1 一般色</h4>
-    <p>糸町鉄道から譲渡された「キハ26-919」を錦中線向けに改造した気動車です。<br>
-    国鉄時代の懐かしい見た目と塗装でとても人気のある車両です。   
-    </p>
-</div>
+                <img src="1000057689.jpg" alt="1000系" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                <h4>キハ1000-1 一般色</h4>
+                <p>糸町鉄道から譲渡された「キハ26-919」を錦中線向けに改造した気動車です。<br>
+                国鉄時代の懐かしい見た目と塗装でとても人気のある車両です。</p>
+            </div>
 
             <div class="train-card">
-    <img src="1000057691.jpg" alt="1000系" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
-    <h4>キハ2000-2 北武塗装</h4>
-    <p>北武鉄道から譲渡された「キハ55-501」を錦中線向けに改造した気動車です。<br>
-        特殊改造により、キハ1000との併結 2両運転が可能になりました。</p>
-</div>
+                <img src="1000057691.jpg" alt="1000系" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                <h4>キハ2000-2 北武塗装</h4>
+                <p>北武鉄道から譲渡された「キハ55-501」を錦中線向けに改造した気動車です。<br>
+                特殊改造により、キハ1000との併結 2両運転が可能になりました。</p>
+            </div>
+
             <div class="train-card">
-    <img src="1000057692.jpg" alt="1000系" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
-    <h4>DB10-3 青塗装</h4>
-    <p>糸町鉄道から譲渡された「DB10」を錦中線向けに改造したディーゼル機関車です。<br>
-    主に、車両の入れ換えやイベント列車の牽引機として運転されます。当機関車は2027年末に引退が決まっています。</p>
-</div>
+                <img src="1000057692.jpg" alt="1000系" style="width: 100%; height: 120px; object-fit: cover; border-radius: 5px;">
+                <h4>DB10-3 青塗装</h4>
+                <p>糸町鉄道から譲渡された「DB10」を錦中線向けに改造したディーゼル機関車です。<br>
+                主に、車両の入れ換えやイベント列車の牽引機として運転されます。当機関車は2027年末に引退が決まっています。</p>
+            </div>
         </div>
     </section>
 
@@ -605,11 +765,11 @@ nav::-webkit-scrollbar {
         
         <div style="display: flex; justify-content: center; padding: 20px 0;">
             <div style="
-                width: 280px; /* 縦長ポスターの幅 */
-                height: 400px; /* 縦長ポスターの高さ */
+                width: 280px;
+                height: 400px;
                 background: white;
-                border: 8px solid #333; /* 額縁（フレーム） */
-                box-shadow: 10px 10px 20px rgba(0,0,0,0.2); /* 壁に貼ってあるような影 */
+                border: 8px solid #333;
+                box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -623,181 +783,71 @@ nav::-webkit-scrollbar {
         <p style="font-size: 0.9rem; color: #666;">※車内マナーを守って、楽しい列車の旅を！</p>
     </section>
 
-
     <section id="faq">
-    <h2>よくある質問（FAQ）</h2>
-    
-    <div style="text-align: left; padding: 10px;">
-        <div class="faq-item">
-            <p class="faq-q">Q. 交通系ICカードは使えますか？</p>
-            <p class="faq-a">A. 申し訳ございませんが、「ブロック現物払い」のみとなります。</p>
-        </div>
-
-        <div class="faq-item">
-            <p class="faq-q">Q. 車内に落とし物をしてしまいました。</p>
-            <p class="faq-a">A. 木上駅の事務室へお越しください。ミニフィグの帽子の忘れ物が増えています。</p>
-        </div>
-
-        <div class="faq-item">
-            <p class="faq-q">Q. ペットと乗車できますか？</p>
-            <p class="faq-a">A. はい。他のお客様のポッチに引っかからないようご注意ください。</p>
-        </div>
-
-        <div id="more-faq" style="display: none;">
-            <div class="faq-item">
-                <p class="faq-q">Q. 写真撮影は自由ですか？</p>
-                <p class="faq-a">A. 自由です。ただし、駅で三脚（ベースプレート）の使用はご遠慮ください。</p>
-            </div>
-            <div class="faq-item">
-                <p class="faq-q">Q. 団体割引はありますか？</p>
-                <p class="faq-a">A. 10名（10体）以上の場合は、運賃が1パーツ引きになります。</p>
-            </div>
-            <div class="faq-item">
-                <p class="faq-q">Q. 無人駅はありますか？</p>
-                <p class="faq-a">A. 現在、森下駅のみ無人駅です。</p>
-            </div>
-            <div class="faq-item">
-                <p class="faq-q">Q. なぜ森下駅のホームは1両分しかないのですか？</p>
-                <p class="faq-a">A. 森下駅は利用者数が少ないため、開業当初から1両分のホームとなっています。2両編成で運転される列車にご乗車する場合は、予め森下駅到着時に貫通路を渡り、1号車から降車ください。 </p>
-            </div>
-             <div class="faq-item">
-                <p class="faq-q">Q. キハ2000はなぜ乗務室ドアがないのですか？</p>
-                <p class="faq-a">A. キハ2000はキハ1000との併結運転をメインとしていて、座席や面積を増やすことで輸送力を最大限にするため、乗務室ドアを無くした改造を行った「乗降ドア兼乗務室ドア」となっています。 また、機関車を連結した単独運転も行っております。</p>
-            </div>
-            <div class="faq-item">
-                <p class="faq-q">Q. 錦中線には貨物列車は走っていますか？</p>
-                <p class="faq-a">A. 現在でも運行されています。国鉄時代によく見られた気動車と国鉄貨車「ワム・トラ」が連結して走る「混合編成」で運転します。なお、不定期で時刻表の一部列車にのみ連結され運転されます。</p>
-            </div>
-            <div class="faq-item">
-                <p class="faq-q">Q. 錦中線の森下駅で拡張工事をする計画がありますがいつからでしょうか？</p>
-                <p class="faq-a">A. 森下駅の向かいの敷地は現在、廃止された支線へと分岐する線路が残っています。その線路を撤去し、貨物用ホームを作る拡張工事を行います。工事は2027年4月のダイヤ改正から始まり、完成予定は同年8月末を予定しています。</p>
-            </div>
-        </div>
-    </div>
-
-    <div style="text-align: center; margin-top: 10px;">
-        <button id="faq-btn" onclick="toggleFAQ()" class="lego-button" style="padding: 10px 20px; font-size: 0.9rem;">
-            もっと見る
-        </button>
-    </div>
-</section>
-
-<style>
-    .faq-item { margin-bottom: 15px; border-bottom: 1px solid var(--lego-gray); padding-bottom: 10px; }
-    .faq-q { font-weight: bold; color: var(--lego-red); margin-bottom: 5px; }
-    .faq-a { margin-top: 0; padding-left: 15px; font-size: 0.95rem; }
-
-    /* ローディング画面全体（画面を覆い隠す） */
-#loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--lego-blue, #0055bf); /* 背景色 */
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999999; /* 何があっても一番上に表示 */
-    transition: opacity 0.8s ease, visibility 0.8s ease; /* 消える時の滑らかさ */
-}
-
-/* ローディングの中身 */
-.loading-content {
-    text-align: center;
-    font-family: sans-serif;
-}
-
-/* KBTロゴのカッコいいアニメーション設定 */
-.kbt-logo-anim {
-    font-size: 3.8rem;
-    font-weight: 900;
-    font-family: 'Impact', 'Arial Black', sans-serif; /* 太くて力強いフォント */
-    letter-spacing: 4px;
-    color: var(--lego-yellow, #ffcf00);
-    
-    /* 3Dブロック風の影をつけて立体的に見せる */
-    text-shadow: 
-        3px 3px 0px var(--lego-red, #e3000b),
-        6px 6px 0px #000000;
+        <h2>よくある質問（FAQ）</h2>
         
-    margin-bottom: 15px;
-    display: inline-block;
-    
-    /* アニメーションの呼び出し */
-    animation: kbtPulse 1.2s infinite ease-in-out;
-}
+        <div style="text-align: left; padding: 10px;">
+            <div class="faq-item">
+                <p class="faq-q">Q. 交通系ICカードは使えますか？</p>
+                <p class="faq-a">A. 申し訳ございませんが、「ブロック現物払い」のみとなります。</p>
+            </div>
 
-/* KBT文字がかっこよく拡大＆揺れるアニメーション */
-@keyframes kbtPulse {
-    0% {
-        transform: scale(1) rotate(0deg);
-    }
-    50% {
-        transform: scale(1.15) rotate(-2deg); /* ぐっと大きくなって少し傾く */
-        text-shadow: 
-            4px 4px 0px var(--lego-red, #e3000b),
-            8px 8px 10px rgba(0, 0, 0, 0.5); /* 影が広がる */
-    }
-    100% {
-        transform: scale(1) rotate(0deg);
-    }
-}
+            <div class="faq-item">
+                <p class="faq-q">Q. 車内に落とし物をしてしまいました。</p>
+                <p class="faq-a">A. 木上駅の事務室へお越しください。ミニフィグの帽子の忘れ物が増えています。</p>
+            </div>
 
-.loading-text {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin-bottom: 15px;
-}
+            <div class="faq-item">
+                <p class="faq-q">Q. ペットと乗車できますか？</p>
+                <p class="faq-a">A. はい。他のお客様のポッチに引っかからないようご注意ください。</p>
+            </div>
 
-/* プログレスバーの外枠 */
-.progress-bar-container {
-    width: 250px;
-    height: 16px;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    margin: 0 auto 15px auto;
-    overflow: hidden;
-    border: 2px solid #ffffff;
-}
+            <div id="more-faq" style="display: none;">
+                <div class="faq-item">
+                    <p class="faq-q">Q. 写真撮影は自由ですか？</p>
+                    <p class="faq-a">A. 自由です。ただし、駅で三脚（ベースプレート）の使用はご遠慮ください。</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Q. 団体割引はありますか？</p>
+                    <p class="faq-a">A. 10名（10体）以上の場合は、運賃が1パーツ引きになります。</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Q. 無人駅はありますか？</p>
+                    <p class="faq-a">A. 現在、森下駅のみ無人駅です。</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Q. なぜ森下駅のホームは1両分しかないのですか？</p>
+                    <p class="faq-a">A. 森下駅は利用者数が少ないため、開業当初から1両分のホームとなっています。2両編成で運転される列車にご乗車する場合は、予め森下駅到着時に貫通路を渡り、1号車から降車ください。</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Q. キハ2000はなぜ乗務室ドアがないのですか？</p>
+                    <p class="faq-a">A. キハ2000はキハ1000との併結運転をメインとしていて、座席や面積を増やすことで輸送力を最大限にするため、乗務室ドアを無くした改造を行った「乗降ドア兼乗務室ドア」となっています。 また、機関車を連結した単独運転も行っております。</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Q. 錦中線には貨物列車は走っていますか？</p>
+                    <p class="faq-a">A. 現在でも運行されています。国鉄時代によく見られた気動車と国鉄貨車「ワム・トラ」が連結して走る「混合編成」で運転します。なお、不定期で時刻表の一部列車にのみ連結され運転されます。</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-q">Q. 錦中線の森下駅で拡張工事をする計画がありますがいつからでしょうか？</p>
+                    <p class="faq-a">A. 森下駅の向かいの敷地は現在、廃止された支線へと分岐する線路が残っています。その線路を撤去し、貨物用ホームを作る拡張工事を行います。工事は2027年4月のダイヤ改正から始まり、完成予定は同年8月末を予定しています。</p>
+                </div>
+            </div>
+        </div>
 
-/* プログレスバーの中身（黄色いゲージ） */
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background-color: var(--lego-yellow, #ffcf00);
-    border-radius: 6px;
-    animation: fillProgress 2s forwards; /* 2秒かけてゲージが溜まる */
-}
+        <div style="text-align: center; margin-top: 10px;">
+            <button id="faq-btn" onclick="toggleFAQ()" class="lego-button" style="padding: 10px 20px; font-size: 0.9rem;">
+                もっと見る
+            </button>
+        </div>
+    </section>
+</main>
 
-.loading-sub {
-    font-size: 0.85rem;
-    opacity: 0.8;
-}
-
-/* 電車が揺れる動き */
-@keyframes bounce {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
-}
-
-/* バーが伸びる動き */
-@keyframes fillProgress {
-    0% { width: 0%; }
-    50% { width: 70%; }
-    100% { width: 100%; }
-}
-
-/* 読み込み完了後に画面を消すためのクラス */
-#loading.loaded {
-    opacity: 0;
-    visibility: hidden;
-}
-</style>
+<footer>
+    <p>&copy; 2026 錦中ブロック鉄道（KBT） All Rights Reserved. <br> by Meda-25</p>
+</footer>
 
 <script>
+// FAQ切り替え機能
 function toggleFAQ() {
     const moreFaq = document.getElementById('more-faq');
     const btn = document.getElementById('faq-btn');
@@ -805,23 +855,25 @@ function toggleFAQ() {
     if (moreFaq.style.display === "none") {
         moreFaq.style.display = "block";
         btn.innerText = "閉じる";
-        btn.classList.add('lego-button-red'); // 開いた時は赤色に変える演出
+        btn.classList.add('lego-button-red');
     } else {
         moreFaq.style.display = "none";
         btn.innerText = "もっと見る";
         btn.classList.remove('lego-button-red');
     }
 }
-</script>
-    
-</main>
 
-<footer>
-    <p>&copy; 2026 錦中ブロック鉄道（KBT） All Rights Reserved. <br>
-        by Meda-25</p>
-</footer>
+// 広告スライダー切り替え
+let currentAdIndex = 0;
+const totalAds = 3;
 
-<script>
+setInterval(function() {
+    currentAdIndex = (currentAdIndex + 1) % totalAds;
+    const offset = -currentAdIndex * (100 / totalAds);
+    document.getElementById('ad-slider').style.transform = `translateX(${offset}%)`;
+}, 3500);
+
+// 運行状況自動更新
 function updateStatus() {
     const now = new Date();
     const h = now.getHours();
@@ -841,18 +893,15 @@ function updateStatus() {
         }
     }
 }
-window.onload = updateStatus;
 
-// ページの読み込みが完了したらローディング画面を消す
+// ローディング消去＆運行状況セット
 window.addEventListener('load', function() {
+    updateStatus();
     const loading = document.getElementById('loading');
-    
-    // 演出をしっかり見せるために、ちょっとだけ（2.2秒）待ってから消す
     setTimeout(function() {
         loading.classList.add('loaded');
     }, 2200); 
 });
-
 </script>
 
 </body>
