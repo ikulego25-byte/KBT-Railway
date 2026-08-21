@@ -453,6 +453,7 @@
 <nav>
     <div class="nav-container">
         <a href="#" class="nav-item">TOP</a>
+        <a href="#news" class="nav-item">ニュース</a> <!-- ← class="nav-item" を追加 -->
         <a href="#about" class="nav-item">会社紹介</a>
         <a href="#map" class="nav-item">路線図</a>
         <a href="#timetable" class="nav-item">時刻表</a>
@@ -519,15 +520,160 @@
 </div>
 
 <main>
-    <section>
-        <h2>最近のお知らせ</h2>
-        <ul class="news-list">
-            <li><span class="date">2026.08.21</span> 新型ハイブリッド機関車「HB-D20形」導入決定と試運転のお知らせ</li>
-            <li><span class="date">2026.07.09</span> 夏休みに向けた増結運転のお知らせ</li>
-            <li><span class="date">2026.06.18</span> 森下駅付近の拡張工事について</li>
-            <li><span class="date">2026.06.04</span> ディーゼル機関車「DB10-3」2027年末引退のお知らせ</li>
-        </ul>
-    </section>
+<section>
+    <h2>最近のお知らせ</h2>
+    <ul class="news-list">
+        <li>
+            <span class="date">2026.08.21</span> 
+            <a href="#news-hbd20" style="color: #333; text-decoration: underline; font-weight: bold;">
+                新型ハイブリッド機関車「HB-D20形」導入決定と試運転のお知らせ
+            </a>
+        </li>
+        <li>
+            <span class="date">2026.07.09</span> 
+            <a href="#news-summer" style="color: #333; text-decoration: underline;">
+                夏休みに向けた増結運転および特別ダイヤの実施について
+            </a>
+        </li>
+        <li>
+            <span class="date">2026.06.18</span> 
+            <a href="#news-construction" style="color: #333; text-decoration: underline;">
+                森下駅付近の安全対策および線路拡張工事について
+            </a>
+        </li>
+        <li>
+            <span class="date">2026.06.04</span> 
+            <a href="#news-db10" style="color: #333; text-decoration: underline;">
+                ディーゼル機関車「DB10-3」2027年末引退のお知らせ
+            </a>
+        </li>
+    </ul>
+</section>
+
+<!-- ニュース & プレスリリース欄（詳細エリア） -->
+<section id="news" style="scroll-margin-top: 70px;">
+    <h2>ニュース & プレスリリース</h2>
+
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+
+        <!-- 1. 最新記事：HB-D20形 -->
+        <article id="news-hbd20" style="background: #fafafa; border: 2px solid var(--lego-blue); padding: 15px; border-radius: 8px; scroll-margin-top: 80px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="background: var(--lego-red); color: white; padding: 3px 8px; font-weight: bold; font-size: 0.8rem; border-radius: 4px;">
+                    プレスリリース
+                </span>
+                <span style="color: #666; font-size: 0.85rem;">2026年8月21日</span>
+            </div>
+
+            <h3 style="color: var(--lego-blue); margin-top: 5px; font-size: 1.15rem;">
+                新型ハイブリッド機関車「HB-D20形」導入決定と試運転のお知らせ
+            </h3>
+
+            <p style="font-size: 0.95rem;">
+                錦中ブロック鉄道では、2027年末に引退を予定している「DB10-3」の後継車両として、新型ハイブリッド機関車<strong>「HB-D20形」</strong>を導入することを決定いたしました。
+            </p>
+
+            <div class="img-placeholder" style="background: #e8eaf6; border: 2px dashed var(--lego-blue);">
+                HB-D20形 車両イメージ画像は現在未掲載です。
+                        </div>
+
+            <p style="font-weight: bold; margin-bottom: 5px; font-size: 0.95rem;">【主な特徴】</p>
+            <ul style="padding-left: 20px; font-size: 0.9rem; margin-top: 0;">
+                <li><strong>環境に優しいハイブリッド方式：</strong> ブロックパーツの節約と高出力を両立。</li>
+                <li><strong>強力な牽引力：</strong> 貨物列車やイベント列車の牽引、構内での車両入れ換え作業で威力を発揮。</li>
+                <li><strong>鮮やかな新塗装：</strong> 錦中線の新しい顔として、オリジナルブロックカラーを採用。</li>
+            </ul>
+
+            <p style="font-size: 0.95rem;">
+                2026年秋頃より本線上での試運転を開始し、2027年春のダイヤ改正より本格営業運転を開始する予定です。
+            </p>
+
+            <div style="text-align: right; margin-top: 10px;">
+                <a href="#top" style="font-size: 0.85rem; color: var(--lego-blue); text-decoration: none;">▲ ページトップへ戻る</a>
+            </div>
+        </article>
+
+
+        <!-- 2. 過去記事：夏休み増結運転 -->
+        <article id="news-summer" style="background: #ffffff; border: 1px solid #ccc; padding: 15px; border-radius: 8px; scroll-margin-top: 80px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="background: #ff9800; color: white; padding: 3px 8px; font-weight: bold; font-size: 0.8rem; border-radius: 4px;">
+                    運行情報
+                </span>
+                <span style="color: #666; font-size: 0.85rem;">2026年7月9日</span>
+            </div>
+
+            <h3 style="color: #333; margin-top: 5px; font-size: 1.1rem;">
+                夏休みに向けた増結運転および特別ダイヤの実施について
+            </h3>
+
+            <p style="font-size: 0.95rem;">
+                8月1日（土）から8月31日（月）までの夏休み期間中、沿線イベントおよび観光ご利用のお客様の増加に対応するため、一部の普通列車を単行運転から2両編成へ増結して運転いたします。
+            </p>
+            <p style="font-size: 0.95rem;">
+                また、土日祝日には貴重な車両を見学・撮影できる体験イベントを開催いたします。※現在、イベントの応募は終了しました。
+            </p>
+
+            <div style="text-align: right; margin-top: 10px;">
+                <a href="#top" style="font-size: 0.85rem; color: var(--lego-blue); text-decoration: none;">▲ ページトップへ戻る</a>
+            </div>
+        </article>
+
+
+        <!-- 3. 過去記事：森下駅工事 -->
+        <article id="news-construction" style="background: #ffffff; border: 1px solid #ccc; padding: 15px; border-radius: 8px; scroll-margin-top: 80px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="background: #4caf50; color: white; padding: 3px 8px; font-weight: bold; font-size: 0.8rem; border-radius: 4px;">
+                    工事案内
+                </span>
+                <span style="color: #666; font-size: 0.85rem;">2026年6月18日</span>
+            </div>
+
+            <h3 style="color: #333; margin-top: 5px; font-size: 1.1rem;">
+                森下駅付近の安全対策および線路拡張工事について
+            </h3>
+
+            <p style="font-size: 0.95rem;">
+                お客様に安心・安全にご利用いただくため、森下駅構内におけるブロック柵の設置作業および駅前の廃線を撤去し、貨物用ホームを作る拡張工事を実施いたします。
+            </p>
+            <p style="font-size: 0.95rem;">
+                工事期間中も通常通り運行いたしますが、夜間（21:00以降）の一部作業に伴い作業音が小さく発生する場合がございます。沿線の皆様のご理解とご協力をお願い申し上げます。
+            </p>
+
+            <div style="text-align: right; margin-top: 10px;">
+                <a href="#top" style="font-size: 0.85rem; color: var(--lego-blue); text-decoration: none;">▲ ページトップへ戻る</a>
+            </div>
+        </article>
+
+
+        <!-- 4. 過去記事：DB10-3引退 -->
+        <article id="news-db10" style="background: #ffffff; border: 1px solid #ccc; padding: 15px; border-radius: 8px; scroll-margin-top: 80px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="background: #795548; color: white; padding: 3px 8px; font-weight: bold; font-size: 0.8rem; border-radius: 4px;">
+                    車両情報
+                </span>
+                <span style="color: #666; font-size: 0.85rem;">2026年6月4日</span>
+            </div>
+
+            <h3 style="color: #333; margin-top: 5px; font-size: 1.1rem;">
+                ディーゼル機関車「DB10-3」2027年末引退のお知らせ
+            </h3>
+
+            <p style="font-size: 0.95rem;">
+                長年にわたり錦中線の貨物列車や構内入換機として活躍してきたディーゼル機関車「DB10-3」ですが、老朽化に伴い2027年12月をもって退役（引退）することが決定いたしました。
+            </p>
+            <p style="font-size: 0.95rem;">
+                長年のご愛顧に感謝を込め、今秋より「記念ヘッドマーク」の装着を予定しております。撮影やご乗車の際はマナーを守ってお楽しみいただきますようお願いいたします。
+            </p>
+
+            <div style="text-align: right; margin-top: 10px;">
+                <a href="#top" style="font-size: 0.85rem; color: var(--lego-blue); text-decoration: none;">▲ ページトップへ戻る</a>
+            </div>
+        </article>
+
+    </div>
+</section>
+    
 
     <section id="about"> 
         <h2>会社紹介</h2>
